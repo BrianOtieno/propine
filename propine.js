@@ -6,6 +6,7 @@ import figlet from 'figlet';
 import minimist from 'minimist';
 import inquirer from 'inquirer';
 import { Command } from 'commander';
+import moment from 'moment'
 
 clear();
 
@@ -63,9 +64,14 @@ else if (typeof token !== 'undefined' && token) {
     console.log(token);
 }
 else if (typeof date !== 'undefined' && date) {
+    if (!moment(date).isValid()) {
+        console.log("Invalid Date");
+        process.exit();
+    }
     console.log(date);
 }
 else {
     // return the latest portfolio value per token in USD
     console.log("no flag set")
 }
+

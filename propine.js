@@ -1,4 +1,5 @@
-#! /usr/bin/env node
+#!/usr/bin/env node
+
 import chalk from 'chalk';
 import clear from 'clear';
 import figlet from 'figlet';
@@ -50,4 +51,21 @@ program.option('-t, --token', 'Add Token to the query API');
 const args = minimist(process.argv.slice(2));
 const token = args.token;
 const date = args.date
-console.log(token, date)
+
+
+if (token && date) {
+    // return the portfolio value of token in USD for the date
+    console.log(token, date);
+}
+else if (typeof token !== 'undefined' && token) {
+    // return the latest portfolio value for token in USD
+    // 
+    console.log(token);
+}
+else if (typeof date !== 'undefined' && date) {
+    console.log(date);
+}
+else {
+    // return the latest portfolio value per token in USD
+    console.log("no flag set")
+}

@@ -35,3 +35,19 @@ ${chalk.yellow('TOKEN & TOKEN:')} ${chalk.red.bold('Example: --date=17-07-2022 -
 ${chalk.yellow('HELP :')} ${chalk.red.bold('--help')}
 ${chalk.blue.bold('--------------------------------------------------------')}
 `);
+
+
+const program = new Command();
+
+program.description("Propine Crypto CLI Application");
+program.name("propine");
+program.option('-d, --date', 'Add Date to the query API');
+program.option('-t, --token', 'Add Token to the query API');
+
+// program.parse(process.argv);
+
+// get input from terminal
+const args = minimist(process.argv.slice(2));
+const token = args.token;
+const date = args.date
+console.log(token, date)

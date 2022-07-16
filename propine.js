@@ -7,6 +7,7 @@ import minimist from 'minimist';
 import inquirer from 'inquirer';
 import { Command } from 'commander';
 import moment from 'moment'
+import { isValidDate } from './propine/validationHelper.js';
 
 clear();
 
@@ -54,24 +55,26 @@ const token = args.token;
 const date = args.date
 
 
-if (token && date) {
-    // return the portfolio value of token in USD for the date
+if (token && date) { //both date and token 
+    // validate date 
+    isValidDate(date)
     console.log(token, date);
-}
-else if (typeof token !== 'undefined' && token) {
-    // return the latest portfolio value for token in USD
-    // 
-    console.log(token);
-}
-else if (typeof date !== 'undefined' && date) {
-    if (!moment(date).isValid()) {
-        console.log("Invalid Date");
-        process.exit();
-    }
-    console.log(date);
-}
-else {
-    // return the latest portfolio value per token in USD
-    console.log("no flag set")
-}
 
+    // TODO: return the portfolio value of token in USD for the date
+}
+else if (typeof token !== 'undefined' && token) { //only token
+    console.log(token);
+
+    // TODO: return the latest portfolio value for token in USD
+}
+else if (typeof date !== 'undefined' && date) { //only date
+    isValidDate(date);
+    console.log(date);
+
+    // TODO: return the portfolio value per token in USD for date
+}
+else { // no valid flag passed.
+    console.log("no flag set")
+
+    // TODO: return the latest portfolio value per token in USD
+}

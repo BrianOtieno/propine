@@ -14,13 +14,13 @@ console.log(
     )
 );
 
-console.log(chalk.green(
+console.log(chalk.green.bold(
     'Welcome to Propine ' +
     chalk.blue.underline.bold('CLI Application') +
     ' where you can make quick Crypto enquiries!'
 ));
 
-console.log(chalk.green(
+console.log(chalk.green.bold(
     'Below are the  ' +
     chalk.red.underline.bold('Arguments') +
     ' you can pass'
@@ -29,9 +29,9 @@ console.log(chalk.green(
 
 console.log(`
 ${chalk.blue.bold('--------------------------------------------------------')}
-${chalk.yellow('TOKEN :')} ${chalk.red('Example: --token=ETH')}
-${chalk.yellow('DATE :')} ${chalk.red('Example --date=17-07-2022')}
-${chalk.yellow('TOKEN & TOKEN:')} ${chalk.red('Example: --date=17-07-2022 --token=ETH')}
-${chalk.yellow('HELP :')} ${chalk.red('--help')}
+${chalk.yellow('TOKEN :')} ${chalk.red.bold('Example: --token=ETH')}
+${chalk.yellow('DATE :')} ${chalk.red.bold('Example --date=17-07-2022')}
+${chalk.yellow('TOKEN & TOKEN:')} ${chalk.red.bold('Example: --date=17-07-2022 --token=ETH')}
+${chalk.yellow('HELP :')} ${chalk.red.bold('--help')}
 ${chalk.blue.bold('--------------------------------------------------------')}
 `);

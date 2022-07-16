@@ -4,6 +4,9 @@
   "description": "<p align=\"center\">   <h1 align=\"center\">Propine Crypto CLI Application</h1> A basic crypto command-line application </p>",
   "main": "propine.js",
   "type": "module",
+  "bin": {
+    "propine": "propine.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

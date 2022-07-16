@@ -1,0 +1,30 @@
+{
+  "name": "propine",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">   <h1 align=\"center\">Propine Crypto CLI Application</h1> A basic crypto command-line application </p>",
+  "main": "propine.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrianOtieno/propine.git"
+  },
+  "keywords": [
+    "CLI"
+  ],
+  "author": "Brian Otieno",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrianOtieno/propine/issues"
+  },
+  "homepage": "https://github.com/BrianOtieno/propine#readme",
+  "dependencies": {
+    "chalk": "^5.0.1",
+    "clear": "^0.1.0",
+    "figlet": "^1.5.2",
+    "inquirer": "^9.0.1",
+    "minimist": "^1.2.6"
+  }
+}

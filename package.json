@@ -23,6 +23,7 @@
   "dependencies": {
     "chalk": "^5.0.1",
     "clear": "^0.1.0",
+    "commander": "^9.4.0",
     "figlet": "^1.5.2",
     "inquirer": "^9.0.1",
     "minimist": "^1.2.6"

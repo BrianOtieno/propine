@@ -8,46 +8,17 @@ import inquirer from 'inquirer';
 import { Command } from 'commander';
 import moment from 'moment'
 import { isValidDate } from './propine/validationHelper.js';
+import { header } from './propine/header.js';
 
-clear();
-
-console.log(
-    chalk.blue.bold(
-        figlet.textSync('Propine CLI', { horizontalLayout: 'full' })
-    )
-);
-
-console.log(chalk.green.bold(
-    'Welcome to Propine ' +
-    chalk.blue.underline.bold('CLI Application') +
-    ' where you can make quick Crypto enquiries!'
-));
-
-console.log(chalk.green.bold(
-    'Below are the  ' +
-    chalk.red.underline.bold('Arguments') +
-    ' you can pass'
-));
-
-
-console.log(`
-${chalk.blue.bold('--------------------------------------------------------')}
-${chalk.yellow('TOKEN :')} ${chalk.red.bold('Example: --token=ETH')}
-${chalk.yellow('DATE :')} ${chalk.red.bold('Example --date=17-07-2022')}
-${chalk.yellow('TOKEN & TOKEN:')} ${chalk.red.bold('Example: --date=17-07-2022 --token=ETH')}
-${chalk.yellow('HELP :')} ${chalk.red.bold('--help')}
-${chalk.blue.bold('--------------------------------------------------------')}
-`);
-
+header()
 
 const program = new Command();
 
-program.description("Propine Crypto CLI Application");
-program.name("propine");
-program.option('-d, --date', 'Add Date to the query API');
-program.option('-t, --token', 'Add Token to the query API');
-
-// program.parse(process.argv);
+program
+    .description("Propine Crypto CLI Application")
+    .name("propine")
+    .option('-d, --date', 'Add Date to the query API')
+    .option('-t, --token', 'Add Token to the query API')
 
 // get input from terminal
 const args = minimist(process.argv.slice(2));
@@ -78,3 +49,5 @@ else { // no valid flag passed.
 
     // TODO: return the latest portfolio value per token in USD
 }
+
+program.parse(process.argv);

@@ -17,20 +17,31 @@ A basic crypto command-line application
 
 Clone the repository and change working directory to the cloned repository. Run npm install to install the dependencies. To run the CLI application, just run npm propine.js
 ```
-$   git clone git@github.com:BrianOtieno/propine.git
-$   cd propine
-$   npm propine.js
+$ git clone git@github.com:BrianOtieno/propine.git
+$ cd propine
+$ cd npm i 
 ```
 </p> 
-<!-- 
-![Propine CLI](/images/demo.png)
-![Alt propine demo image](url) -->
+
+
 
 <p>
   <h2>Using CLI Application</h2>
 
 Use the flags eg --date=2017-07-16, --token=ETH or a combination of both: --date=2017-07-16 --token=ETH
 ```
-$   propine.js --token=ETH
+$ node propine.js --token=ETH
 ```
+![Propine CLI](/propine/images/propine.png) 
 </p> 
+
+<p>
+  <h3>Querying Token</h3>
+
+</p>
+<p>
+  <h2>Design Decisions</h2>
+The csv data is too large thus loading the data into memory for caching isn't feasible. Data can thus be read into chunks by user queried input.
+
+The UI used chalk and figlet to enhance the visual experience for the users, giving a better UX.
+</p>

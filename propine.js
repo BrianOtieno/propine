@@ -9,6 +9,7 @@ import { Command } from 'commander';
 import moment from 'moment'
 import { isValidDate } from './propine/validationHelper.js';
 import { header } from './propine/header.js';
+import { portfolioTokenValue } from './propine/portfolio.js';
 
 header()
 
@@ -38,16 +39,15 @@ else if (typeof token !== 'undefined' && token) { //only token
 
     // TODO: return the latest portfolio value for token in USD
 }
-else if (typeof date !== 'undefined' && date) { //only date
-    isValidDate(date);
+else if (typeof date !== 'undefined' && date) {
+    isValidDate(date); //validate date
     console.log(date);
 
     // TODO: return the portfolio value per token in USD for date
 }
-else { // no valid flag passed.
-    console.log("no flag set")
+else portfolioTokenValue(); //return the latest portfolio value per token in USD 
 
-    // TODO: return the latest portfolio value per token in USD
-}
 
-program.parse(process.argv);
+
+
+// program.parse(process.argv);

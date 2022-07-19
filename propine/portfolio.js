@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
 import moment from 'moment'
+import { tokenRate } from './rates.js';
 
 const __dirname = path.resolve();
 
@@ -46,7 +47,7 @@ export const portfolioTokenValue = () => {
         })
 }
 
-export const tokenValue = (token) => {
+export const tokenValue = async (token) => {
     const transactions = []
     fs.createReadStream(path.join(__dirname, 'transactions.csv'))
         .pipe(csv())
@@ -80,12 +81,22 @@ export const tokenValue = (token) => {
             }, {});
 
             const tokenPortfolio = portfolioBalance
-                .filter(portfolioBalance => portfolioBalance.token === token)
+                .filter(portfolioBalance => portfolioBalance.token === token);
+            // let tokenInUSD = 0;
+            // tokenPortfolio.forEach(function (item) {
+            //     // console.log("==>" + item.amount);
+            //     tokenInUSD = item.amount * 3;
+            // });
+            // console.log(tokenInUSD);
+            // tokenPortfolio["USD"] = tokenPortfolio["amount"] * tokenRate(token, "USD")
 
-            //TO DO ADD Exchange Rate (USD Column) From CryptoCompare - rate x token value
+            tokenRate(token, "USD", tokenPortfolio)
 
-            tokenPortfolio.length > 0 ? console.table(tokenPortfolio) :
-                console.log(chalk.hex('#DEADED').bold('No token data available for that token'));
+            // tokenPortfolio.push({ usd: tokenInUSD })
+            // //TO DO ADD Exchange Rate (USD Column) From CryptoCompare - rate x token value
+
+            // tokenPortfolio.length > 0 ? console.table(tokenPortfolio) :
+            //     console.log(chalk.hex('#DEADED').bold('No token data available for that token'));
         })
 }
 

@@ -6,6 +6,6 @@ export const isValidDate = (date) => {
         return true;
     } else {
         console.log(chalk.hex('#DEADED').bold(date + ' is an invalid Date'));
-        process.exit();
+        return false;
     }
 }

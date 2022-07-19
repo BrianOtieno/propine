@@ -27,9 +27,13 @@
     "chalk": "^5.0.1",
     "clear": "^0.1.0",
     "commander": "^9.4.0",
+    "convert-csv-to-array": "^1.0.3",
+    "csv-parser": "^3.0.0",
+    "fast-csv": "^4.3.6",
     "figlet": "^1.5.2",
     "inquirer": "^9.0.1",
     "minimist": "^1.2.6",
-    "moment": "^2.29.4"
+    "moment": "^2.29.4",
+    "open": "^8.4.0"
   }
 }

@@ -41,6 +41,7 @@ export const portfolioTokenValue = () => {
             }, {});
 
             //TO DO ADD Exchange Rate (USD Column) From CryptoCompare - rate x token value
+            // tokenRate(token, "USD", tokenPortfolio)
 
             portfolioBalance.length > 0 && console.table(portfolioBalance)
             !portfolioBalance.length > 0 && console.log(chalk.hex('#DEADED').bold('No porfolio data available'));
@@ -135,18 +136,16 @@ export const portfolioTokenValueByDate = (date) => {
         .pipe(csv())
         .on('data', function (row) {
             const transaction = {
-                timestamp: moment(row.timestamp, 'YYYY-MM-DD').toDate(),
+                timestamp: moment(row.timestamp).format('L'),
                 transaction_type: row.transaction_type,
                 token: row.token,
                 amount: row.transaction_type === "DEPOSIT" ?
                     Math.abs(row.amount) : // positive amount for Deposits
                     -Math.abs(row.amount) // negative amount for Withdrawals
             }
-            if (moment(row.timestamp, 'YYYY-MM-DD').toDate() < moment(date, 'YYYY-MM-DD').toDate()) {
-                transactions.push(transaction)
-                console.log(true)
-                console.log("in csv " + moment(row.timestamp, 'YYYY-MM-DD').toDate(), moment(date).format('YYYY-MM-DD'))
-            }
+            // if (moment(row.timestamp, 'YYYY-MM-DD').toDate() < moment(date, 'YYYY-MM-DD').toDate()) {
+            transactions.push(transaction)
+            // }
         })
         .on("error", err => {
             console.log(err);
@@ -164,8 +163,7 @@ export const portfolioTokenValueByDate = (date) => {
                     portfolioBalance.push(res[value.token])
                 }
                 res[value.token].amount += value.amount;
-                res[value.token].date = date;
-                res[value.token].last_transaction = moment(value.timestamp).format('L');
+                res[value.token].date = value.timestamp;
                 return res;
             }, {});
 

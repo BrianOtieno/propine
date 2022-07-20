@@ -28,23 +28,19 @@ program
 const args = minimist(process.argv.slice(2));
 const token = args.token;
 const date = args.date;
-console.log(token, date);
+// console.log(token, date);
 
 
 if (token && date) { //both date and token 
-    // validate date 
-    console.log(token, date);
-    isValidDate(date)
+    isValidDate(date)  // validate date  
     tokenAndDate(token, date);
 }
 else if (typeof token !== 'undefined' && token) {
     tokenValue(token) //return the latest portfolio value for token in USD 
 }
-else if (typeof date !== 'undefined' && date) {
-    if (isValidDate(date))
-        portfolioTokenValueByDate(date); //validate date 
-    //return the portfolio value per token in USD for date 
-}
+else if (typeof date !== 'undefined' && date)
+    isValidDate(date) && portfolioTokenValueByDate(date); //validate date  
+
 else portfolioTokenValue(); //return the latest portfolio value per token in USD 
 
 

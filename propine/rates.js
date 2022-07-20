@@ -1,4 +1,5 @@
 import fetch from "node-fetch";
+import chalk from "chalk";
 
 export const tokenRate = (token, currency, tokenPortfolio) => {
     // if (token) { url += `${token}`;}
@@ -17,8 +18,8 @@ export const tokenRate = (token, currency, tokenPortfolio) => {
         });
 
         const usdTokenAmount = tokenAmount * parseFloat(JSON.stringify(data.USD)).toFixed(2);
-        // Two decimal places for USD currency. 
-        tokenPortfolio.push({ rate: 1 * parseFloat(data.USD).toFixed(2), value: 1 * parseFloat(usdTokenAmount).toFixed(2) });
+        // Two decimal places for USD currency. Push only if there are Tx data available
+        tokenPortfolio.length > 0 && tokenPortfolio.push({ rate: 1 * parseFloat(data.USD).toFixed(2), value: 1 * parseFloat(usdTokenAmount).toFixed(2) });
         tokenPortfolio.length > 0 ? console.table(tokenPortfolio) :
             console.log(chalk.hex('#DEADED').bold('No token data available for that token'));
     });

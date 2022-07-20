@@ -9,7 +9,7 @@ import { Command } from 'commander';
 import moment from 'moment'
 import { isValidDate } from './propine/validationHelper.js';
 import { header } from './propine/header.js';
-import { portfolioTokenValue, portfolioTokenValueByDate, tokenValue } from './propine/portfolio.js';
+import { portfolioTokenValue, portfolioTokenValueByDate, tokenAndDate, tokenValue } from './propine/portfolio.js';
 import { tokenRate, tokenRates } from './propine/rates.js';
 
 header()
@@ -27,15 +27,15 @@ program
 // get input from terminal
 const args = minimist(process.argv.slice(2));
 const token = args.token;
-const date = args.date
+const date = args.date;
+console.log(token, date);
 
 
 if (token && date) { //both date and token 
     // validate date 
-    isValidDate(date)
     console.log(token, date);
-
-    // TODO: return the portfolio value of token in USD for the date
+    isValidDate(date)
+    tokenAndDate(token, date);
 }
 else if (typeof token !== 'undefined' && token) {
     tokenValue(token) //return the latest portfolio value for token in USD 

@@ -82,21 +82,50 @@ export const tokenValue = async (token) => {
 
             const tokenPortfolio = portfolioBalance
                 .filter(portfolioBalance => portfolioBalance.token === token);
-            // let tokenInUSD = 0;
-            // tokenPortfolio.forEach(function (item) {
-            //     // console.log("==>" + item.amount);
-            //     tokenInUSD = item.amount * 3;
-            // });
-            // console.log(tokenInUSD);
-            // tokenPortfolio["USD"] = tokenPortfolio["amount"] * tokenRate(token, "USD")
 
             tokenRate(token, "USD", tokenPortfolio)
+        })
+}
 
-            // tokenPortfolio.push({ usd: tokenInUSD })
-            // //TO DO ADD Exchange Rate (USD Column) From CryptoCompare - rate x token value
+export const tokenAndDate = async (token, date) => {
+    const transactions = []
+    fs.createReadStream(path.join(__dirname, 'transactions.csv'))
+        .pipe(csv())
+        .on('data', function (row) {
+            const transaction = {
+                timestamp: moment(row.timestamp).format('L'),
+                transaction_type: row.transaction_type,
+                token: row.token,
+                amount: row.transaction_type === "DEPOSIT" ?
+                    Math.abs(row.amount) : // positive amount for Deposits
+                    -Math.abs(row.amount) // negative amount for Withdrawals
+            }
+            transactions.push(transaction)
+        })
+        .on("error", err => {
+            console.log(err);
+        })
+        .on('end', function () {
+            // console.table(transactions)
+            const portfolioBalance = []
+            transactions.reduce((res, value) => {
+                if (!res[value.token]) {
+                    res[value.token] = {
+                        token: value.token,
+                        amount: 0,
+                        date: value.timestamp
+                    };
+                    portfolioBalance.push(res[value.token])
+                }
+                res[value.token].amount += value.amount;
+                return res;
+            }, {});
 
-            // tokenPortfolio.length > 0 ? console.table(tokenPortfolio) :
-            //     console.log(chalk.hex('#DEADED').bold('No token data available for that token'));
+            const tokenPortfolio = portfolioBalance
+                .filter(portfolioBalance => portfolioBalance.token === token)
+                .filter(portfolioBalance => portfolioBalance.date <= date);
+
+            tokenRate(token, "USD", tokenPortfolio)
         })
 }
 

@@ -54,7 +54,7 @@ export const tokenValue = async (token) => {
         .pipe(csv())
         .on('data', function (row) {
             const transaction = {
-                timestamp: row.timestamp,
+                timestamp: moment.unix(row.timestamp).format("YYYY-MM-DD"),
                 transaction_type: row.transaction_type,
                 token: row.token,
                 amount: row.transaction_type === "DEPOSIT" ?
@@ -94,7 +94,7 @@ export const tokenAndDate = async (token, date) => {
         .pipe(csv())
         .on('data', function (row) {
             const transaction = {
-                timestamp: moment(row.timestamp).format('L'),
+                timestamp: moment.unix(row.timestamp).format("YYYY-MM-DD"),
                 transaction_type: row.transaction_type,
                 token: row.token,
                 amount: row.transaction_type === "DEPOSIT" ?
@@ -136,7 +136,7 @@ export const portfolioTokenValueByDate = (date) => {
         .pipe(csv())
         .on('data', function (row) {
             const transaction = {
-                timestamp: moment(row.timestamp).format('L'),
+                timestamp: moment.unix(row.timestamp).format("YYYY-MM-DD"), //moment(row.timestamp).format("YYYY/MM/DD"),
                 transaction_type: row.transaction_type,
                 token: row.token,
                 amount: row.transaction_type === "DEPOSIT" ?
@@ -145,30 +145,32 @@ export const portfolioTokenValueByDate = (date) => {
             }
             // if (moment(row.timestamp, 'YYYY-MM-DD').toDate() < moment(date, 'YYYY-MM-DD').toDate()) {
             transactions.push(transaction)
+            console.log(transaction)
             // }
         })
         .on("error", err => {
             console.log(err);
         })
         .on('end', function () {
-            // console.table(transactions)
+            console.table(transactions)
             const portfolioBalance = []
             transactions.reduce((res, value) => {
                 if (!res[value.token]) {
                     res[value.token] = {
-                        token: value.timestamp,
                         token: value.token,
+                        date: value.timestamp,
                         amount: 0,
                     };
                     portfolioBalance.push(res[value.token])
                 }
                 res[value.token].amount += value.amount;
-                res[value.token].date = value.timestamp;
+                res[value.token].timestamp = value.timestamp;
                 return res;
             }, {});
 
             //TO DO ADD Exchange Rate (USD Column) From CryptoCompare - rate x token value
-
+            // console.log(moment(1571967208)) 
+            console.log(moment.unix(1571967208).format("MM/DD/YYYY"))
             const tokenPortfolio = portfolioBalance;
             // .filter(portfolioBalance => portfolioBalance.last_transaction <= date);
 

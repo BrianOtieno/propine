@@ -10,7 +10,7 @@ import moment from 'moment'
 import { isValidDate } from './propine/validationHelper.js';
 import { header } from './propine/header.js';
 import { portfolioTokenValue, portfolioTokenValueByDate, tokenAndDate, tokenValue } from './propine/portfolio.js';
-import { tokenRate, tokenRates } from './propine/rates.js';
+// import { tokenRate, tokenRates } from './propine/rates.js';
 
 header()
 // console.table(tokenRate("ETH", "USD"));

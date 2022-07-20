@@ -107,24 +107,30 @@ export const tokenAndDate = async (token, date) => {
             console.log(err);
         })
         .on('end', function () {
-            // console.table(transactions)
+            // console.log(transactions)
             const portfolioBalance = []
             transactions.reduce((res, value) => {
                 if (!res[value.token]) {
                     res[value.token] = {
                         token: value.token,
                         amount: 0,
-                        date: value.timestamp
+                        timestamp: value.timestamp
                     };
-                    portfolioBalance.push(res[value.token])
+                    console.log(value.timestamp, date)
+                    value.timestamp <= date && portfolioBalance.push(res[value.token]) // push only data in required date range
+
+
                 }
                 res[value.token].amount += value.amount;
                 return res;
             }, {});
+            console.log(portfolioBalance.timestamp)
 
             const tokenPortfolio = portfolioBalance
                 .filter(portfolioBalance => portfolioBalance.token === token)
-                .filter(portfolioBalance => portfolioBalance.date <= date);
+            // .filter(portfolioBalance => portfolioBalance.timestamp <= date);
+            console.log(date, portfolioBalance.timestamp)
+
 
             tokenRate(token, "USD", tokenPortfolio)
         })

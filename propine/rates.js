@@ -52,7 +52,7 @@ export const tokensPortfolio = (tokens, currency, portfolioBalance) => {
         const data = await response.json();
 
         let tokenAmount = [];
-        portfolioBalance.forEach(function (item) {
+        portfolioBalance.forEach((item) => {
             const token = {
                 token: item.token,
                 amount: item.amount

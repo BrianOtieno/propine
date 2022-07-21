@@ -50,7 +50,44 @@ export const tokensPortfolio = (tokens, currency, portfolioBalance) => {
 
     fetch(RATES_URL).then(async (response) => {
         const data = await response.json();
-        console.log(JSON.stringify(data));
-        return data;
+        // console.log(JSON.stringify(data));
+        // console.log(portfolioBalance)
+
+        let tokenAmount = [];
+        portfolioBalance.forEach(function (item) {
+            // console.log("==>" + item.amount); 
+            const token = {
+                token: item.token,
+                amount: item.amount
+            }
+            tokenAmount.push(token)
+            // tokenAmount[item.token] = item.amount
+        });
+
+        console.table(tokenAmount);
+
+        let rates = []
+        tokens.forEach((item) => {
+            // rates[item] = data[item].USD
+            const token = {
+                token: item,
+                rate: data[item].USD
+            }
+            rates.push(token)
+        })
+        console.table(rates);
+
+        let portfolioBalanceValue = rates.map((e, i) => {
+            let buffer = tokenAmount.find(element => element.token === e.token)
+            if (buffer.token) {
+                e.amount = buffer.amount;
+                e.usd = 1 * parseFloat(buffer.amount * e.rate).toFixed(2); //2DP for USD
+            }
+            return e;
+        });
+
+        (portfolioBalanceValue.length > 0) ?
+            console.table(portfolioBalanceValue) :
+            console.log(chalk.hex('#DEADED').bold('No porfolio data available'));
     });
 };

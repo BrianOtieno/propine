@@ -27,7 +27,7 @@ export const header = () => {
         ${chalk.blue.bold('--------------------------------------------------------')}
         ${chalk.yellow('TOKEN :')} ${chalk.red.bold('Example: --token=ETH')}
         ${chalk.yellow('DATE :')} ${chalk.red.bold('Example --date=17-07-2022')}
-        ${chalk.yellow('TOKEN & TOKEN:')} ${chalk.red.bold('Example: --date=17-07-2022 --token=ETH')}
+        ${chalk.yellow('TOKEN & DATE:')} ${chalk.red.bold('Example: --token=ETH --date=17-07-2022')}
         ${chalk.yellow('HELP :')} ${chalk.red.bold('--help')}
         ${chalk.blue.bold('--------------------------------------------------------')}
     `);

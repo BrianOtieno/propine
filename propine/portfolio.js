@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
 import moment from 'moment'
-import { tokenRate } from './rates.js';
+import { tokenRate, tokensPortfolio } from './rates.js';
 
 const __dirname = path.resolve();
 
@@ -151,14 +151,13 @@ export const portfolioTokenValueByDate = (date) => {
             }
             // if (moment(row.timestamp, 'YYYY-MM-DD').toDate() < moment(date, 'YYYY-MM-DD').toDate()) {
             transactions.push(transaction)
-            console.log(transaction)
             // }
         })
         .on("error", err => {
             console.log(err);
         })
         .on('end', function () {
-            console.table(transactions)
+            // console.table(transactions)
             const portfolioBalance = []
             transactions.reduce((res, value) => {
                 if (!res[value.token]) {
@@ -166,22 +165,36 @@ export const portfolioTokenValueByDate = (date) => {
                         token: value.token,
                         date: value.timestamp,
                         amount: 0,
+                        rate: 0
                     };
-                    portfolioBalance.push(res[value.token])
+                    value.timestamp <= date && portfolioBalance.push(res[value.token])
                 }
                 res[value.token].amount += value.amount;
                 res[value.token].timestamp = value.timestamp;
                 return res;
             }, {});
 
-            //TO DO ADD Exchange Rate (USD Column) From CryptoCompare - rate x token value
-            // console.log(moment(1571967208)) 
-            console.log(moment.unix(1571967208).format("MM/DD/YYYY"))
-            const tokenPortfolio = portfolioBalance;
-            // .filter(portfolioBalance => portfolioBalance.last_transaction <= date);
+            // Checking for dups, should be none - O'Brien Otieno
+            const data = portfolioBalance.filter((obj, pos, portfolioBalance) => {
+                return portfolioBalance
+                    .map(mapObj => mapObj.token)
+                    .indexOf(obj.token) == pos;
+            })
+            console.table(data);
 
-            (tokenPortfolio.length > 0) ?
-                console.table(tokenPortfolio) :
-                console.log(chalk.hex('#DEADED').bold('No porfolio data available'));
+            //retrieve list of tokens in CSV database. - O'Brien Otieno
+            let tokenList = [];
+            data.forEach(function (item) {
+                tokenList.push(item.token);
+            });
+            tokenList && console.log("List of Tokens Found in CSV Database: " + tokenList);
+
+            //    tokensPortfolio().filter(portfolioBalance => portfolioBalance.last_transaction <= date); // already filtered!
+            // convert to USD
+
+            portfolioBalance.length > 0 &&
+                console.log(chalk.hex('#DEADED').bold('================ CONVERTING TO USD ================'));
+
+            tokensPortfolio(tokenList, "USD", portfolioBalance); //convert to usd
         })
 }

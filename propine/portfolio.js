@@ -11,7 +11,7 @@ export const portfolioTokenValue = () => {
     const transactions = []
     fs.createReadStream(path.join(__dirname, 'transactions.csv'))
         .pipe(csv())
-        .on('data', function (row) {
+        .on('data', (row) => {
             const transaction = {
                 timestamp: row.timestamp,
                 transaction_type: row.transaction_type,
@@ -25,7 +25,7 @@ export const portfolioTokenValue = () => {
         .on("error", err => {
             console.log(err);
         })
-        .on('end', function () {
+        .on('end', () => {
             // console.table(transactions)
             const portfolioBalance = []
             transactions.reduce((res, value) => {
@@ -41,7 +41,7 @@ export const portfolioTokenValue = () => {
             }, {});
 
             let tokenList = [];
-            portfolioBalance.forEach(function (item) {
+            portfolioBalance.forEach((item) => {
                 tokenList.push(item.token);
             });
             tokenList && console.log("List of Tokens Found in CSV Database: " + tokenList);
@@ -57,7 +57,7 @@ export const tokenValue = async (token) => {
     const transactions = []
     fs.createReadStream(path.join(__dirname, 'transactions.csv'))
         .pipe(csv())
-        .on('data', function (row) {
+        .on('data', (row) => {
             const transaction = {
                 timestamp: moment.unix(row.timestamp).format("YYYY-MM-DD"),
                 transaction_type: row.transaction_type,
@@ -71,7 +71,7 @@ export const tokenValue = async (token) => {
         .on("error", err => {
             console.log(err);
         })
-        .on('end', function () {
+        .on('end', () => {
             // console.table(transactions)
             const portfolioBalance = []
             transactions.reduce((res, value) => {
@@ -97,7 +97,7 @@ export const tokenAndDate = async (token, date) => {
     const transactions = []
     fs.createReadStream(path.join(__dirname, 'transactions.csv'))
         .pipe(csv())
-        .on('data', function (row) {
+        .on('data', (row) => {
             const transaction = {
                 timestamp: moment.unix(row.timestamp).format("YYYY-MM-DD"),
                 transaction_type: row.transaction_type,
@@ -111,7 +111,7 @@ export const tokenAndDate = async (token, date) => {
         .on("error", err => {
             console.log(err);
         })
-        .on('end', function () {
+        .on('end', () => {
             // console.log(transactions)
             const portfolioBalance = []
             transactions.reduce((res, value) => {
@@ -143,7 +143,7 @@ export const portfolioTokenValueByDate = (date) => {
     const transactions = []
     fs.createReadStream(path.join(__dirname, 'transactions.csv'))
         .pipe(csv())
-        .on('data', function (row) {
+        .on('data', (row) => {
             const transaction = {
                 timestamp: moment.unix(row.timestamp).format("YYYY-MM-DD"), //moment(row.timestamp).format("YYYY/MM/DD"),
                 transaction_type: row.transaction_type,
@@ -159,7 +159,7 @@ export const portfolioTokenValueByDate = (date) => {
         .on("error", err => {
             console.log(err);
         })
-        .on('end', function () {
+        .on('end', () => {
             // console.table(transactions)
             const portfolioBalance = []
             transactions.reduce((res, value) => {
@@ -187,7 +187,7 @@ export const portfolioTokenValueByDate = (date) => {
 
             //retrieve list of tokens in CSV database. - O'Brien Otieno
             let tokenList = [];
-            data.forEach(function (item) {
+            data.forEach((item) => {
                 tokenList.push(item.token);
             });
             tokenList && console.log("List of Tokens Found in CSV Database: " + tokenList);

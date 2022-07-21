@@ -46,12 +46,38 @@ node propine.js --date=2019-10-25
 </p>
 
 <p>
+  <h3>Querying By Token And Date</h3>
+
+Example: 
+```
+node propine.js --token=ETH --date=2019-10-25
+
+```
+
+![Propine CLI](/propine/images/tokenanddate.png) 
+</p>
+
+<p>
+  <h3>Querying By Token</h3>
+
+Example: 
+```
+node propine.js --token=ETH
+
+```
+
+![Propine CLI](/propine/images/token.png) 
+</p>
+
+<p>
   <h2>Design Decisions</h2>
-The csv data is too large thus loading the data into memory for caching isn't feasible. Data can thus be read into chunks by user queried input.
+The csv data is too large thus loading the data into memory for on a lower end devices wouldn't be feasible. Data can thus be read in chunks by row.
 
-Introduced id column on the data. For some weird reason, timestamp column wouldn't import while on first column. Maintained the first 5000 records to keep the application fast. Also, included the last 5000 records to enhance queries. NB: This might affect the token data balance and return negative portfolio amount if data withdrawals outweighs deposits in the first 5000 selections by the difference in the last 5000 selections.
+Introduced id column on the data. For some weird reason, timestamp column wouldn't import while on first column. Maintained the first 5000 records to keep the application fast. Also, included the last 5000 records to enhance queries. 
 
-The UI used chalk and figlet to enhance the visual experience for the users, giving a better UX.
+<strong>NB:</strong> This might affect the token data balance and return negative portfolio amount if data withdrawals outweighs deposits in the first 5000 selections by the difference in the last 5000 selections.
 
-The portfolio value by date is a filter of the sum of transactions for that portfolio until the defined date.
+The UI uses chalk and figlet to enhance the visual experience for the users, giving a better UX.
+
+The portfolio value by date is a filter of the sum of transactions for that portfolio until but not greater than the date date passed in the arguments.
 </p>

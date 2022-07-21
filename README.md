@@ -17,9 +17,13 @@ A basic crypto command-line application
 
 Clone the repository and change working directory to the cloned repository. Run npm install to install the dependencies. To run the CLI application, just run npm propine.js
 ```
-git clone git@github.com:BrianOtieno/propine.git
-cd propine
-cd npm i 
+git clone git@github.com:BrianOtieno/propine.git  
+```
+``` 
+cd propine 
+```
+``` 
+npm i 
 ```
 </p> 
 

@@ -50,12 +50,9 @@ export const tokensPortfolio = (tokens, currency, portfolioBalance) => {
 
     fetch(RATES_URL).then(async (response) => {
         const data = await response.json();
-        // console.log(JSON.stringify(data));
-        // console.log(portfolioBalance)
 
         let tokenAmount = [];
         portfolioBalance.forEach(function (item) {
-            // console.log("==>" + item.amount); 
             const token = {
                 token: item.token,
                 amount: item.amount

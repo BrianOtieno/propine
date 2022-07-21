@@ -116,7 +116,7 @@ export const tokenAndDate = async (token, date) => {
                         amount: 0,
                         timestamp: value.timestamp
                     };
-                    console.log(value.timestamp, date)
+
                     value.timestamp <= date && portfolioBalance.push(res[value.token]) // push only data in required date range
 
 
@@ -124,12 +124,10 @@ export const tokenAndDate = async (token, date) => {
                 res[value.token].amount += value.amount;
                 return res;
             }, {});
-            console.log(portfolioBalance.timestamp)
 
             const tokenPortfolio = portfolioBalance
                 .filter(portfolioBalance => portfolioBalance.token === token)
-            // .filter(portfolioBalance => portfolioBalance.timestamp <= date);
-            console.log(date, portfolioBalance.timestamp)
+            // .filter(portfolioBalance => portfolioBalance.timestamp <= date); 
 
 
             tokenRate(token, "USD", tokenPortfolio)

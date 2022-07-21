@@ -40,11 +40,16 @@ export const portfolioTokenValue = () => {
                 return res;
             }, {});
 
-            //TO DO ADD Exchange Rate (USD Column) From CryptoCompare - rate x token value
-            // tokenRate(token, "USD", tokenPortfolio)
+            let tokenList = [];
+            portfolioBalance.forEach(function (item) {
+                tokenList.push(item.token);
+            });
+            tokenList && console.log("List of Tokens Found in CSV Database: " + tokenList);
 
-            portfolioBalance.length > 0 && console.table(portfolioBalance)
-            !portfolioBalance.length > 0 && console.log(chalk.hex('#DEADED').bold('No porfolio data available'));
+            portfolioBalance.length > 0 &&
+                console.log(chalk.hex('#DEADED').bold('================ CONVERTING TO USD ================'));
+
+            tokensPortfolio(tokenList, "USD", portfolioBalance); //convert to usd
         })
 }
 
